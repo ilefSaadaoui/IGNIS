@@ -138,7 +138,7 @@ IGNIS automatically classifies queries into one of 7 specialized routing topolog
 
 ## 🖥️ Interactive Frontend (10 Views)
 
-The Streamlit interface ([**https://ignis-space.streamlit.app/**](https://ignis-space.streamlit.app/)) provides 10 dedicated workstations (or `http://localhost:8501` for local development):
+The Streamlit interface ([**https://ignis-space.streamlit.app/**](https://ignis-space.streamlit.app/)) provides 10 dedicated workstations :
 
 1. **Home:** Overview banner, corpus metrics (102 docs / 16,168 chunks), workflow cards, quick-start query launchers.
 2. **Ask IGNIS:** Real-time multi-agent execution with streaming thought logs, timeline, and final reviewed answer.
