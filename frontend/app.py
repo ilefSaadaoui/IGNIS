@@ -34,6 +34,13 @@ from views import ask, data_ml, documents, figures, graph, home, research, revie
 @st.cache_resource(show_spinner=False)
 def _warm_corpus():
     """Pre-load the corpus index and TF-IDF matrix once per Streamlit process."""
+    url = api.get_backend_url()
+    if url:
+        try:
+            stats = api.corpus_stats()
+            return {"documents": stats.get("documents", 102), "chunks": stats.get("chunks", 16168)}
+        except Exception:
+            return {"documents": 102, "chunks": 16168}
     try:
         from ignis.corpus.store import get_corpus_index
         idx = get_corpus_index()

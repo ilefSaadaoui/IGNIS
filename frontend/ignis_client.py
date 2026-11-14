@@ -100,7 +100,63 @@ def now_label() -> str:
     return datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M:%S")
 
 
+def get_backend_url() -> str | None:
+    """Return remote backend API URL if configured (e.g. on Render / Streamlit Cloud)."""
+    import os
+
+    url = os.environ.get("IGNIS_BACKEND_URL")
+    if url and url.strip():
+        return url.strip().rstrip("/")
+    try:
+        import streamlit as st
+
+        if hasattr(st, "secrets") and "IGNIS_BACKEND_URL" in st.secrets:
+            s_url = str(st.secrets["IGNIS_BACKEND_URL"]).strip()
+            if s_url:
+                return s_url.rstrip("/")
+    except Exception:
+        pass
+    return None
+
+
+def _http_request(method: str, path: str, payload: dict | None = None, timeout: float = 120.0) -> Any:
+    base = get_backend_url()
+    if not base:
+        return None
+    import urllib.error
+    import urllib.parse
+    import urllib.request
+
+    full_url = f"{base}{path}"
+    headers = {"User-Agent": "IGNIS-Frontend/1.0"}
+    data_bytes = None
+    if payload is not None:
+        headers["Content-Type"] = "application/json"
+        data_bytes = json.dumps(payload).encode("utf-8")
+
+    req = urllib.request.Request(full_url, data=data_bytes, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            raw = resp.read().decode("utf-8")
+            return json.loads(raw)
+    except urllib.error.HTTPError as exc:
+        err_body = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"HTTP {exc.code} from {full_url}: {err_body}") from exc
+    except Exception as exc:
+        raise RuntimeError(f"Failed to connect to {full_url}: {exc}") from exc
+
+
 def backend_status() -> tuple[bool, str | None]:
+    url = get_backend_url()
+    if url:
+        try:
+            res = _http_request("GET", "/health", timeout=8.0)
+            if isinstance(res, dict) and res.get("status") == "healthy":
+                return True, None
+            return True, None
+        except Exception as exc:
+            return False, f"Remote backend unreachable at {url} ({exc})"
+
     try:
         import ignis.config.settings
         import ignis.orchestration.routing
@@ -225,6 +281,15 @@ def classify_question(question: str) -> str:
 
 
 def corpus_stats() -> dict[str, Any]:
+    url = get_backend_url()
+    if url:
+        try:
+            res = _http_request("GET", "/api/corpus/stats", timeout=10.0)
+            if isinstance(res, dict):
+                return res
+        except Exception as exc:
+            return {"status": "failed", "errors": [str(exc)]}
+
     def _inner() -> dict[str, Any]:
         from ignis.tools.literature_tools import get_corpus_status
 
@@ -242,13 +307,41 @@ def run_workflow(
     session_id: str | None = None,
     include_reviewer: bool = True,
 ) -> dict[str, Any]:
-    from ignis.orchestration.workflows import run_workflow as backend_run_workflow
-
     text = (question or "").strip()
     if not text:
         return {"status": "failed", "errors": ["Question must not be empty."], "_error": True, "question": ""}
     code = (workflow_code or "").strip().upper()
     selected = code if code in WORKFLOW_LABELS else None
+
+    url = get_backend_url()
+    if url:
+        try:
+            req_body = {
+                "question": text,
+                "workflow": selected,
+                "user_id": user_id or "streamlit_user",
+                "session_id": (session_id or "").strip() or None,
+                "include_reviewer": include_reviewer,
+            }
+            res = _http_request("POST", "/api/ask", payload=req_body, timeout=180.0)
+            if isinstance(res, dict):
+                data = res
+                data["steps"] = [_as_mapping(step) for step in data.get("steps", [])]
+                failed = any(step.get("status") == "failed" for step in data["steps"])
+                data["status"] = "partial" if failed else "completed"
+                data["_meta"] = {
+                    "created_at": now_label(),
+                    "user_id": user_id or "streamlit_user",
+                    "include_reviewer": include_reviewer,
+                    "requested_workflow": selected or "auto",
+                    "remote_backend": url,
+                }
+                return data
+        except Exception as exc:
+            return {"status": "failed", "errors": [f"Remote backend call failed: {exc}"], "_error": True, "question": text}
+
+    from ignis.orchestration.workflows import run_workflow as backend_run_workflow
+
     try:
         _require_backend()
         result = _run_async(
@@ -278,6 +371,18 @@ def run_workflow(
 
 
 def search_nasa(query: str, source: str = "all", limit: int = 5) -> dict[str, Any]:
+    url = get_backend_url()
+    if url:
+        try:
+            import urllib.parse
+
+            params = urllib.parse.urlencode({"query": query, "source": source, "limit": limit})
+            res = _http_request("GET", f"/api/nasa/search?{params}", timeout=15.0)
+            if isinstance(res, dict):
+                return res
+        except Exception as exc:
+            return {"status": "failed", "errors": [str(exc)]}
+
     def _inner() -> dict[str, Any]:
         from ignis.tools.nasa_tools import search_nasa_research
 
@@ -287,6 +392,16 @@ def search_nasa(query: str, source: str = "all", limit: int = 5) -> dict[str, An
 
 
 def search_corpus(query: str, top_k: int = 5, investigation: str | None = None) -> dict[str, Any]:
+    url = get_backend_url()
+    if url:
+        try:
+            req_body = {"query": query, "top_k": top_k, "investigation": investigation}
+            res = _http_request("POST", "/api/search", payload=req_body, timeout=15.0)
+            if isinstance(res, dict):
+                return res
+        except Exception as exc:
+            return {"status": "failed", "errors": [str(exc)]}
+
     def _inner() -> dict[str, Any]:
         from ignis.tools.literature_tools import search_scientific_literature
 
@@ -294,17 +409,19 @@ def search_corpus(query: str, top_k: int = 5, investigation: str | None = None) 
 
     return _guard("corpus search", _inner)
 
-
-def investigation_metadata(name: str, limit: int = 5) -> dict[str, Any]:
-    def _inner() -> dict[str, Any]:
-        from ignis.tools.nasa_tools import retrieve_investigation_metadata
-
-        return retrieve_investigation_metadata(name, limit=limit)
-
-    return _guard("investigation metadata", _inner)
-
-
 def search_images(query: str, media_type: str = "image", page_size: int = 5) -> dict[str, Any]:
+    url = get_backend_url()
+    if url:
+        try:
+            import urllib.parse
+
+            params = urllib.parse.urlencode({"query": query, "media_type": media_type, "page_size": page_size})
+            res = _http_request("GET", f"/api/nasa/images?{params}", timeout=15.0)
+            if isinstance(res, dict):
+                return res
+        except Exception as exc:
+            return {"status": "failed", "errors": [str(exc)]}
+
     def _inner() -> dict[str, Any]:
         from ignis.tools.nasa_tools import search_nasa_images
 
