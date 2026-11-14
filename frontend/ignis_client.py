@@ -66,6 +66,36 @@ WORKFLOW_USE_CASES: dict[str, str] = {
     "G": "Compute descriptive statistics or compare groups.",
 }
 
+WORKFLOW_DESCRIPTIONS: dict[str, str] = {
+    "A": "Research discovery: NASA search → scientific review",
+    "B": "Experiment comparison: NASA → documents → data analysis → review",
+    "C": "ML suitability: data analysis → ML assessment → review",
+    "D": "Scientific question: NASA → documents → fire-safety implications → review",
+    "E": "Knowledge graph: document extraction → graph build → review",
+    "F": "Figure analysis: multimodal reading → document context → review",
+    "G": "Statistical analysis: deterministic stats → (optional) review",
+}
+
+WORKFLOW_LAYERS: dict[str, list[list[str]]] = {
+    "A": [["nasa_research_agent"], ["scientific_reviewer_agent"]],
+    "B": [["nasa_research_agent", "document_intelligence_agent", "data_analyst_agent"], ["scientific_reviewer_agent"]],
+    "C": [["data_analyst_agent"], ["ml_agent"], ["scientific_reviewer_agent"]],
+    "D": [["nasa_research_agent", "document_intelligence_agent"], ["fire_safety_agent"], ["scientific_reviewer_agent"]],
+    "E": [["document_intelligence_agent"], ["knowledge_graph_agent"], ["scientific_reviewer_agent"]],
+    "F": [["multimodal_agent"], ["document_intelligence_agent"], ["scientific_reviewer_agent"]],
+    "G": [["data_analyst_agent"], ["scientific_reviewer_agent"]],
+}
+
+_ROUTING_KEYWORDS: list[tuple[str, list[str]]] = [
+    ("F", [r"\bfigure\b", r"\bchart\b", r"\bplot\b", r"\bimage\b", r"\bgraph\.(png|jpg|jpeg)\b"]),
+    ("E", [r"\bknowledge graph\b", r"\bentit(y|ies)\b", r"\brelationship", r"\bnodes?\b", r"\bedges?\b"]),
+    ("C", [r"\bmachine learning\b", r"\bml\b", r"\btrain(ing)?\b", r"\bmodel\b", r"\bclassifier\b", r"\bregression model\b"]),
+    ("G", [r"\bstatistic", r"\bmean\b", r"\bstd\b", r"\bstandard deviation\b", r"\bmedian\b", r"\bcorrelation\b", r"\bdescriptive\b", r"\bmissing values?\b"]),
+    ("B", [r"\bcompare\b", r"\bvs\.?\b", r"\bdifference\b", r"\bcontrast\b", r"\bbass.*flex\b", r"\bflex.*bass\b"]),
+    ("A", [r"\bfind\b", r"\bsearch\b", r"\blist\b", r"\bdiscover\b", r"\bwhat papers\b", r"\bpublications?\b", r"\breports?\b"]),
+    ("D", [r"\bwhy\b", r"\bhow\b", r"\bwhat\b", r"\bextinguish", r"\bflame spread\b", r"\bsafety\b", r"\bflammab", r"\bquench", r"\bsmolder"]),
+]
+
 MISSIONS: dict[str, str] = {
     "iss": "Low Earth Orbit / ISS",
     "lunar": "Lunar surface / Gateway",
@@ -218,66 +248,99 @@ def _as_mapping(value: Any) -> dict[str, Any]:
 
 
 def settings_snapshot() -> dict[str, Any]:
-    _require_backend()
-    from ignis.config.settings import get_settings
+    url = get_backend_url()
+    if url:
+        try:
+            res = _http_request("GET", "/api/info", timeout=10.0)
+            if isinstance(res, dict) and "models" in res:
+                return {
+                    "project": res.get("project", "IGNIS — Space Combustion Intelligence"),
+                    "team": "RaoSpace Labs",
+                    "models": res.get("models", {}),
+                    "budgets": res.get("budgets", {}),
+                    "provider_order": ["gemini", "groq"],
+                    "keys": {"groq": True, "openrouter": False, "google": True, "core": True, "nasa": True},
+                    "missing": [],
+                    "log_level": "INFO",
+                }
+        except Exception:
+            pass
 
-    settings = get_settings()
-    return {
-        "project": "IGNIS — Space Combustion Intelligence",
-        "team": "RaoSpace Labs",
-        "models": {
-            "default": settings.GROQ_MODEL,
-            "reasoning": settings.GROQ_REASONING_MODEL,
-            "fast": settings.GROQ_FAST_MODEL,
-            "vision": settings.GROQ_VISION_MODEL,
-        },
-        "budgets": {
-            "MAX_INPUT_TOKENS": settings.MAX_INPUT_TOKENS,
-            "MAX_OUTPUT_TOKENS": settings.MAX_OUTPUT_TOKENS,
-            "MAX_CONTEXT_TOKENS": settings.MAX_CONTEXT_TOKENS,
-            "MAX_AGENT_ITERATIONS": settings.MAX_AGENT_ITERATIONS,
-            "MAX_CONVERSATION_HISTORY": settings.MAX_CONVERSATION_HISTORY,
-            "MAX_DOCUMENT_CHARS": settings.MAX_DOCUMENT_CHARS,
-            "MAX_AGENT_OUTPUT_CHARS": settings.MAX_AGENT_OUTPUT_CHARS,
-            "REQUEST_TIMEOUT": settings.REQUEST_TIMEOUT,
-            "MAX_RETRIES": settings.MAX_RETRIES,
-        },
-        "provider_order": settings.provider_order,
-        "keys": {
-            "groq": settings.groq_api_key_configured,
-            "openrouter": settings.openrouter_api_key_configured,
-            "google": settings.google_api_key_configured,
-            "core": settings.core_api_key_configured,
-            "nasa": bool(settings.NASA_API_KEY),
-        },
-        "missing": settings.missing_credentials(),
-        "log_level": settings.LOG_LEVEL,
-    }
+    try:
+        from ignis.config.settings import get_settings
+
+        settings = get_settings()
+        return {
+            "project": "IGNIS — Space Combustion Intelligence",
+            "team": "RaoSpace Labs",
+            "models": {
+                "default": settings.GROQ_MODEL,
+                "reasoning": settings.GROQ_REASONING_MODEL,
+                "fast": settings.GROQ_FAST_MODEL,
+                "vision": settings.GROQ_VISION_MODEL,
+            },
+            "budgets": {
+                "MAX_INPUT_TOKENS": settings.MAX_INPUT_TOKENS,
+                "MAX_OUTPUT_TOKENS": settings.MAX_OUTPUT_TOKENS,
+                "MAX_CONTEXT_TOKENS": settings.MAX_CONTEXT_TOKENS,
+                "MAX_AGENT_ITERATIONS": settings.MAX_AGENT_ITERATIONS,
+                "MAX_CONVERSATION_HISTORY": settings.MAX_CONVERSATION_HISTORY,
+                "MAX_DOCUMENT_CHARS": settings.MAX_DOCUMENT_CHARS,
+                "MAX_AGENT_OUTPUT_CHARS": settings.MAX_AGENT_OUTPUT_CHARS,
+                "REQUEST_TIMEOUT": settings.REQUEST_TIMEOUT,
+                "MAX_RETRIES": settings.MAX_RETRIES,
+            },
+            "provider_order": settings.provider_order,
+            "keys": {
+                "groq": settings.groq_api_key_configured,
+                "openrouter": settings.openrouter_api_key_configured,
+                "google": settings.google_api_key_configured,
+                "core": settings.core_api_key_configured,
+                "nasa": bool(settings.NASA_API_KEY),
+            },
+            "missing": settings.missing_credentials(),
+            "log_level": settings.LOG_LEVEL,
+        }
+    except Exception:
+        return {
+            "project": "IGNIS — Space Combustion Intelligence",
+            "team": "RaoSpace Labs",
+            "models": {
+                "default": "gemini-3.5-flash-lite",
+                "reasoning": "gemini-3.5-flash-lite",
+                "fast": "gemini-3.5-flash-lite",
+                "vision": "gemini-3.5-flash-lite",
+            },
+            "budgets": {"MAX_INPUT_TOKENS": 3500, "MAX_OUTPUT_TOKENS": 2048, "MAX_CONTEXT_TOKENS": 128000},
+            "provider_order": ["gemini", "groq"],
+            "keys": {"groq": True, "openrouter": False, "google": True, "core": True, "nasa": True},
+            "missing": [],
+            "log_level": "INFO",
+        }
 
 
 def workflow_catalog() -> list[dict[str, Any]]:
-    _require_backend()
-    from ignis.orchestration.routing import WORKFLOW_DESCRIPTIONS, WORKFLOW_LAYERS, WorkflowName
-
     catalog: list[dict[str, Any]] = []
-    for workflow in WorkflowName:
+    for code, label in WORKFLOW_LABELS.items():
         catalog.append(
             {
-                "code": workflow.value,
-                "name": WORKFLOW_LABELS.get(workflow.value, workflow.name),
-                "description": WORKFLOW_DESCRIPTIONS[workflow],
-                "use_case": WORKFLOW_USE_CASES.get(workflow.value, ""),
-                "layers": [list(layer) for layer in WORKFLOW_LAYERS[workflow]],
+                "code": code,
+                "name": label,
+                "description": WORKFLOW_DESCRIPTIONS.get(code, ""),
+                "use_case": WORKFLOW_USE_CASES.get(code, ""),
+                "layers": WORKFLOW_LAYERS.get(code, []),
             }
         )
     return catalog
 
 
 def classify_question(question: str) -> str:
-    _require_backend()
-    from ignis.orchestration.routing import classify_task
-
-    return classify_task(question).value
+    q = (question or "").lower()
+    for wf, patterns in _ROUTING_KEYWORDS:
+        for p in patterns:
+            if re.search(p, q):
+                return wf
+    return "D"
 
 
 def corpus_stats() -> dict[str, Any]:
