@@ -1,0 +1,13 @@
+{
+  "pythonVersion": "3.13",
+  "pythonPlatform": "Windows",
+  "extraPaths": [
+    "frontend",
+    "backend/ignis_adk"
+  ],
+  "exclude": [
+    "**/__pycache__",
+    "backend/.venv"
+  ]
+}
+

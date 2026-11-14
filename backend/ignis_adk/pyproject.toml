@@ -1,0 +1,41 @@
+[project]
+name = "ignis-space-combustion-intelligence"
+version = "1.0.0"
+description = "Evidence-grounded multi-agent scientific intelligence for NASA microgravity combustion and fire safety (Google ADK + Groq)."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-adk>=2.0",
+    "litellm>=1.70",
+    "groq>=1.0",
+    "python-dotenv>=1.0",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "scikit-learn>=1.4",
+    "requests>=2.31",
+    "beautifulsoup4>=4.12",
+    "pypdf>=4.0",
+    "python-docx>=1.1",
+    "tiktoken>=0.7",
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    # Dense retrieval leg (hybrid TF-IDF + MiniLM). CPU-only torch via the pin below —
+    # this is the default install, so a plain `uv sync` gives full retrieval out of the box.
+    # Force TF-IDF at runtime with IGNIS_DENSE=off (no reinstall needed).
+    "torch>=2.0",
+    "sentence-transformers>=3.0",
+]
+
+[tool.uv]
+# Virtual project: dependencies only, the app itself is not built/installed as a wheel.
+package = false
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }

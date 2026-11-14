@@ -1,0 +1,56 @@
+# IGNIS_Final — .gitignore racine
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# Environnements virtuels
+.venv/
+venv/
+env/
+ENV/
+
+# Variables d'environnement (NE JAMAIS commiter !)
+.env
+*.env
+!.env.example
+
+# Tests et couverture
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.egg
+
+# IDEs
+.vscode/settings.json
+.idea/
+*.iml
+
+# Données volumineuses (corpus NASA)
+backend/ignis_adk/data/corpus/*.pdf
+backend/ignis_adk/data/corpus/embeddings.npy
+backend/ignis_adk/data/corpus/ingest_report.json
+backend/ignis_adk/data/gold/faithfulness_report.json
+# Note: metadata.json (15.9 MB) and embeddings_meta.json are tracked so the
+# 102 NASA NTRS papers / 16,168 chunks are available out-of-the-box on clone.
+
+# ADK runtime
+backend/ignis_adk/ignis/.adk/
+.adk/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+

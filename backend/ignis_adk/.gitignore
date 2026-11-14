@@ -1,0 +1,18 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.coverage
+htmlcov/
+data/corpus/*.pdf
+data/corpus/ingest_report.json
+data/corpus/embeddings.npy
+data/gold/faithfulness_report.json
+# Note: metadata.json (15.9 MB) and embeddings_meta.json are tracked so the
+# 102 NASA NTRS papers / 16,168 chunks are available out-of-the-box on clone.
+
+# ADK runtime session store (created by adk web)
+.adk/

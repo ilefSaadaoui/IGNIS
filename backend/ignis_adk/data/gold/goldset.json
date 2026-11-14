@@ -1,0 +1,459 @@
+[
+ {
+  "id": "gold-001",
+  "investigation": "BASS",
+  "question": "Which solid fuel did the BASS/BASS-II experiments most famously burn, and what property was measured?",
+  "required_keywords": [
+   "PMMA",
+   "burning",
+   "microgravity"
+  ],
+  "sources": [
+   "20160000593",
+   "20150008961",
+   "20210011385"
+  ],
+  "reference_answer_draft": "PMMA solid fuels were burned in microgravity to measure burning rates and flammability limits.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-002",
+  "investigation": "BASS",
+  "question": "How does oxygen concentration affect the blowoff limits of a diffusively burning solid in microgravity?",
+  "required_keywords": [
+   "blowoff",
+   "oxygen"
+  ],
+  "sources": [
+   "20170006615",
+   "20160012691"
+  ],
+  "reference_answer_draft": "Blowoff limits vary with oxygen concentration; mixed-convection blowoff maps the oxygen threshold above which burning cannot be sustained.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-003",
+  "investigation": "BASS",
+  "question": "What role did fuel thickness and preheating play in microgravity material flammability?",
+  "required_keywords": [
+   "thickness",
+   "flammability"
+  ],
+  "sources": [
+   "20140011099"
+  ],
+  "reference_answer_draft": "Thickness and fuel preheating influence flame spread and flammability limits of solids in microgravity.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-004",
+  "investigation": "BASS",
+  "question": "What sensors flew on the BASS experiment to measure combustion behavior aboard the ISS?",
+  "required_keywords": [
+   "sensor"
+  ],
+  "sources": [
+   "20150019858"
+  ],
+  "reference_answer_draft": "On-board CSA-CP and CDM sensors recorded combustion data during BASS test points.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-005",
+  "investigation": "BASS-II",
+  "question": "What was the objective of BASS-II aboard the International Space Station?",
+  "required_keywords": [
+   "International Space Station",
+   "burning"
+  ],
+  "sources": [
+   "20210011385",
+   "20160000593"
+  ],
+  "reference_answer_draft": "BASS-II measured burning rates and suppression of solid fuels in ISS microgravity to understand material flammability for spacecraft.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-006",
+  "investigation": "BASS-II",
+  "question": "How flammable are PMMA rods in concurrent flow in microgravity?",
+  "required_keywords": [
+   "PMMA",
+   "flow"
+  ],
+  "sources": [
+   "20150008961"
+  ],
+  "reference_answer_draft": "PMMA rods burned in concurrent flow in microgravity show flow-rate-dependent flame spread and extinction behavior.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-007",
+  "investigation": "BASS-II",
+  "question": "How were microgravity forced-flow flammability limits correlated with normal-gravity mixed convection blowoff limits?",
+  "required_keywords": [
+   "blowoff",
+   "correlation"
+  ],
+  "sources": [
+   "20160012691",
+   "20170006615"
+  ],
+  "reference_answer_draft": "Microgravity forced-flow limits correlate with normal-gravity mixed-convection blowoff limits as a function of oxygen concentration.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-008",
+  "investigation": "BASS-II",
+  "question": "What did BASS-II report about PMMA burning rate versus oxygen concentration?",
+  "required_keywords": [
+   "PMMA",
+   "oxygen"
+  ],
+  "sources": [
+   "20160000593",
+   "20210011385"
+  ],
+  "reference_answer_draft": "Burning rate depends on ambient oxygen concentration and diluent; lower oxygen reduces burning rate toward extinction.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-009",
+  "investigation": "FLEX",
+  "question": "What does the FLEX experiment study?",
+  "required_keywords": [
+   "droplet",
+   "extinguish"
+  ],
+  "sources": [
+   "20090014812",
+   "20150023456"
+  ],
+  "reference_answer_draft": "FLEX burned isolated droplets in microgravity to characterise flame extinction conditions and burning behavior.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-010",
+  "investigation": "FLEX",
+  "question": "Which liquid fuel droplets were burned in FLEX?",
+  "required_keywords": [
+   "methanol",
+   "droplet"
+  ],
+  "sources": [
+   "20130014061",
+   "20150023456"
+  ],
+  "reference_answer_draft": "FLEX primarily burned methanol droplets (and other test fuels) in low oxygen environments.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-011",
+  "investigation": "FLEX",
+  "question": "How do oxygen-inert environments affect droplet flame extinction?",
+  "required_keywords": [
+   "oxygen",
+   "droplet"
+  ],
+  "sources": [
+   "20130014061",
+   "20150023456"
+  ],
+  "reference_answer_draft": "Adding inert diluent lowers oxygen and drives the droplet flame toward extinction; FLEX maps the extinction boundary.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-012",
+  "investigation": "FLEX",
+  "question": "What was the Skylab M-479 experiment about?",
+  "required_keywords": [
+   "Skylab",
+   "flammability"
+  ],
+  "sources": [
+   "19740021777",
+   "20260001908"
+  ],
+  "reference_answer_draft": "Skylab M-479 studied zero-gravity flammability of materials, an early precursor to modern space combustion work.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-013",
+  "investigation": "FLEX",
+  "question": "What is the Multi-User Droplet Combustion Apparatus used for?",
+  "required_keywords": [
+   "droplet",
+   "apparatus"
+  ],
+  "sources": [
+   "20090014812"
+  ],
+  "reference_answer_draft": "It is the ISS facility that deploys, ignites and extinguishes droplets for FLEX and later droplet combustion science.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-014",
+  "investigation": "ACME",
+  "question": "What is the ACME investigation on the ISS?",
+  "required_keywords": [
+   "Advanced Combustion",
+   "International Space Station"
+  ],
+  "sources": [
+   "20210015913",
+   "20220015583",
+   "20210021781",
+   "20140009169"
+  ],
+  "reference_answer_draft": "ACME is a suite of gaseous-flame microgravity combustion experiments aboard the ISS.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-015",
+  "investigation": "ACME",
+  "question": "What gaseous, non-premixed flame research is planned for the ISS?",
+  "required_keywords": [
+   "gaseous",
+   "flame"
+  ],
+  "sources": [
+   "20140009169"
+  ],
+  "reference_answer_draft": "Gaseous non-premixed diffusion flames in microgravity, including coflow configurations, are central to ACME flame science.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-016",
+  "investigation": "ACME",
+  "question": "What recent gaseous-fuel flame research has been reported aboard the ISS?",
+  "required_keywords": [
+   "gaseous",
+   "International Space Station"
+  ],
+  "sources": [
+   "20210021781",
+   "20210022542"
+  ],
+  "reference_answer_draft": "Recent ACME work reports gaseous-fuel flames aboard the ISS, characterising flame structure and stability in microgravity.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-017",
+  "investigation": "ACME",
+  "question": "What topics were covered at the microgravity combustion workshops that preceded ACME?",
+  "required_keywords": [
+   "microgravity",
+   "combustion"
+  ],
+  "sources": [
+   "20010073993",
+   "20040053504"
+  ],
+  "reference_answer_draft": "The workshops covered microgravity combustion fundamentals across droplets, solids and gaseous flames.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-018",
+  "investigation": "SAME",
+  "question": "What does the Smoke Aerosol Measurement Experiment measure?",
+  "required_keywords": [
+   "smoke",
+   "particle"
+  ],
+  "sources": [
+   "20130000422",
+   "20150010172"
+  ],
+  "reference_answer_draft": "SAME burns materials and characterises the resulting smoke aerosol particles to inform spacecraft fire detection.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-019",
+  "investigation": "SAME",
+  "question": "What did SAME find about particle morphology and size distributions?",
+  "required_keywords": [
+   "morphology",
+   "particle"
+  ],
+  "sources": [
+   "20130000422"
+  ],
+  "reference_answer_draft": "Smoke particles from burning spacecraft materials show measurable morphology and size distributions relevant to detector response.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-020",
+  "investigation": "SAME",
+  "question": "How does smoke particle research inform next-generation ISS smoke detectors?",
+  "required_keywords": [
+   "smoke",
+   "detector"
+  ],
+  "sources": [
+   "20070031686"
+  ],
+  "reference_answer_draft": "Particle sizing data guides photoelectric and ionization detector design for ISS fire safety.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-021",
+  "investigation": "SAME",
+  "question": "What is known about spacecraft airborne particulate matter characterization?",
+  "required_keywords": [
+   "particulate",
+   "spacecraft"
+  ],
+  "sources": [
+   "20190032657"
+  ],
+  "reference_answer_draft": "Airborne particulate matter in spacecraft is characterized by size and type for crew-health and fire-safety monitoring.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-022",
+  "investigation": "SAME-R",
+  "question": "What did the SAME reflight measure?",
+  "required_keywords": [
+   "morphology",
+   "particle"
+  ],
+  "sources": [
+   "20150010172"
+  ],
+  "reference_answer_draft": "The SAME reflight repeated particle morphology measurements of smoke aerosols from burning spacecraft materials.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-023",
+  "investigation": "SAME-R",
+  "question": "Why was a SAME reflight needed?",
+  "required_keywords": [
+   "reflight",
+   "particle"
+  ],
+  "sources": [
+   "20150010172",
+   "20130000422"
+  ],
+  "reference_answer_draft": "The reflight validated and extended SAME particle morphology and sizing results from the original experiment.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-024",
+  "investigation": "SAFFIRE",
+  "question": "What is the Spacecraft Fire Experiment (Saffire)?",
+  "required_keywords": [
+   "fire",
+   "spacecraft"
+  ],
+  "sources": [
+   "20170000230",
+   "20170001636"
+  ],
+  "reference_answer_draft": "Saffire is a series of large-scale fire experiments on unmanned Cygnus resupply vehicles to study spacecraft fire behavior.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-025",
+  "investigation": "SAFFIRE",
+  "question": "What modeling was developed from the Saffire-IV experiments?",
+  "required_keywords": [
+   "model",
+   "fire"
+  ],
+  "sources": [
+   "20220002714"
+  ],
+  "reference_answer_draft": "Saffire-IV data informed models of large-scale spacecraft fire growth and spread.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-026",
+  "investigation": "SAFFIRE",
+  "question": "What did large-scale spacecraft flammability tests show?",
+  "required_keywords": [
+   "flammability",
+   "spacecraft"
+  ],
+  "sources": [
+   "20170008805",
+   "20150022421",
+   "20220002714",
+   "20180005168",
+   "20170001636",
+   "20140011433"
+  ],
+  "reference_answer_draft": "Large-scale Saffire tests measured flame spread and flammability of spacecraft cabin materials at realistic scales.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-027",
+  "investigation": "SAFFIRE",
+  "question": "Why does Saffire use un-crewed vehicles?",
+  "required_keywords": [
+   "fire",
+   "spacecraft"
+  ],
+  "sources": [
+   "20180005168",
+   "20170000230",
+   "20170008805",
+   "20170002628",
+   "20170007283"
+  ],
+  "reference_answer_draft": "Large-scale fires cannot be flown crewed; Saffire safely conducts fires aboard unmanned Cygnus vehicles after ISS departure.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-028",
+  "investigation": "SAFFIRE",
+  "question": "What are the objectives, development status and key results of Saffire?",
+  "required_keywords": [
+   "objectives",
+   "Saffire"
+  ],
+  "sources": [
+   "20170001636",
+   "20170002628"
+  ],
+  "reference_answer_draft": "Saffire objectives were to quantify large-scale fire growth, spread and detectability of spacecraft fires; results informed NASA fire-safety standards.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-029",
+  "investigation": "BASS",
+  "question": "Which investigations study solid-fuel flammability in microgravity?",
+  "required_keywords": [
+   "flammability",
+   "microgravity"
+  ],
+  "sources": [
+   "20140011099",
+   "20150008961",
+   "20170008805",
+   "20210011385",
+   "20150022123",
+   "20020081329",
+   "20040053504",
+   "19990053965"
+  ],
+  "reference_answer_draft": "BASS/BASS-II on solids, and large-scale flammability screening under SAFFIRE, study solid flammability in microgravity.",
+  "expert_review_required": true
+ },
+ {
+  "id": "gold-030",
+  "investigation": "SAFFIRE",
+  "question": "How do Saffire results inform spacecraft fire-safety standards and material selection?",
+  "required_keywords": [
+   "fire",
+   "spacecraft"
+  ],
+  "sources": [
+   "20170007283",
+   "20170008805",
+   "20160010292"
+  ],
+  "reference_answer_draft": "Saffire flame-spread measurements on real cabin materials provide data to set spacecraft material flammability requirements and crew-safety standards.",
+  "expert_review_required": true
+ }
+]
