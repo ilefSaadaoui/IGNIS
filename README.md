@@ -138,7 +138,7 @@ IGNIS automatically classifies queries into one of 7 specialized routing topolog
 
 ## 🖥️ Interactive Frontend (10 Views)
 
-The Streamlit interface (`http://localhost:8501`) provides 10 dedicated workstations:
+The Streamlit interface ([**https://ignis-space.streamlit.app/**](https://ignis-space.streamlit.app/)) provides 10 dedicated workstations (or `http://localhost:8501` for local development):
 
 1. **Home:** Overview banner, corpus metrics (102 docs / 16,168 chunks), workflow cards, quick-start query launchers.
 2. **Ask IGNIS:** Real-time multi-agent execution with streaming thought logs, timeline, and final reviewed answer.
@@ -161,8 +161,8 @@ The Streamlit interface (`http://localhost:8501`) provides 10 dedicated workstat
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/your-username/IGNIS_Final.git
-cd IGNIS_Final
+git clone https://github.com/ilefSaadaoui/IGNIS.git
+cd IGNIS
 ```
 
 ### 3. Create & Activate a Virtual Environment
@@ -209,7 +209,7 @@ python -m uvicorn server:app --host 127.0.0.1 --port 8000 --reload
 cd frontend
 python -m streamlit run app.py --server.port 8501
 ```
-*Web application available at `http://localhost:8501`*
+*Web application available at `http://localhost:8501` (or live at [https://ignis-space.streamlit.app/](https://ignis-space.streamlit.app/))*
 
 ---
 
