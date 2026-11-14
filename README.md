@@ -1,6 +1,14 @@
 # 🚀 IGNIS — Space Combustion Intelligence
 ### NASA Space Apps Challenge 2026 · Team RaoSpace Labs
 
+[![Live Demo](https://img.shields.io/badge/Streamlit_Cloud-Live_Demo-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://ignis-space.streamlit.app/)
+[![Backend API](https://img.shields.io/badge/Render-Backend_API-46E3B7?style=for-the-badge&logo=render&logoColor=white)](https://ignis-backend-nxe9.onrender.com)
+
+**🌐 Live Web Application:** [https://ignis-space.streamlit.app/](https://ignis-space.streamlit.app/)  
+**⚡ Cloud Backend API (Render):** [https://ignis-backend-nxe9.onrender.com](https://ignis-backend-nxe9.onrender.com)
+
+---
+
 [![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB.svg?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![Google ADK](https://img.shields.io/badge/Google_ADK-2.0-4285F4.svg?style=flat&logo=google&logoColor=white)](https://github.com/google/adk)
 [![Gemini](https://img.shields.io/badge/Gemini_API-3.5_Flash_Lite-8E75C2.svg?style=flat&logo=google-gemini&logoColor=white)](https://aistudio.google.com/)
@@ -238,7 +246,11 @@ python -m pytest tests/ -q
 
 ---
 
-## 🌐 Deployment (Render)
+## 🌐 Deployment & Live Links
+
+- **Frontend (Streamlit Cloud):** [https://ignis-space.streamlit.app/](https://ignis-space.streamlit.app/)
+- **Backend API (Render):** [https://ignis-backend-nxe9.onrender.com](https://ignis-backend-nxe9.onrender.com)
+  - Health check: `GET /health` → `{"status": "healthy", "service": "IGNIS Space Combustion Intelligence"}`
 
 The backend is configured for deployment on [Render](https://render.com/) via [`backend/ignis_adk/render.yaml`](backend/ignis_adk/render.yaml):
 - **Root Directory:** `backend/ignis_adk`
