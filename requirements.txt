@@ -1,2 +1,3 @@
 # IGNIS Root Requirements — installs all dependencies for both backend and frontend
 -r backend/ignis_adk/requirements.txt
+
