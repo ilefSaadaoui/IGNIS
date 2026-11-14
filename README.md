@@ -260,9 +260,10 @@ The backend is configured for deployment on [Render](https://render.com/) via [`
 
 ## 👥 Team RaoSpace Labs
 
-Developed for the **NASA Space Apps Challenge 2026**:
+Developed for the **NASA Space Apps Challenge 2026** by **Team RaoSpace Labs**:
+
+- **Ilef Saadaoui** — Project Lead & AI Architect *(Multi-Agent System, Google ADK Orchestration, Scientific Integrity & Project Leadership)*
 - **Bilal** — Frontend Architecture & Streamlit UI Workstations
 - **Yassir** — Multi-Agent Backend, Google ADK & Cloud Deployment
-- **Team RaoSpace Labs** — Space Combustion Intelligence
 
-*Powered by NASA Open Data & Google Agent Development Kit.*
+*IGNIS — Space Combustion Intelligence · Powered by NASA Open Data & Google Agent Development Kit.*

@@ -1,6 +1,6 @@
 # IGNIS — Space Combustion Intelligence
 
-**Team:** RaoSpace Labs · **Challenge:** *Flame in Freefall: AI-Powered Fire Safety Insights from Microgravity Combustion Data*
+**Team:** RaoSpace Labs · **Lead:** Ilef Saadaoui · **Challenge:** *Flame in Freefall: AI-Powered Fire Safety Insights from Microgravity Combustion Data*
 
 IGNIS is an evidence-grounded, multi-agent scientific research system that turns NASA
 microgravity combustion research into searchable, comparable, explainable knowledge.
